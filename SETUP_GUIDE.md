@@ -63,6 +63,31 @@
    PORT=3000
    ```
 
+### Step 2.5: Set Up Cloudinary for Profile Images (Optional)
+
+1. **Create Cloudinary Account**
+   - Go to https://cloudinary.com/
+   - Sign up for a free account (25GB storage, 25GB monthly bandwidth)
+
+2. **Get Your API Credentials**
+   - Go to your Dashboard
+   - Note down your Cloud Name, API Key, and API Secret
+
+3. **Update .env File**
+   Add these lines to your `.env` file:
+   ```
+   CLOUDINARY_CLOUD_NAME=your_cloud_name
+   CLOUDINARY_API_KEY=your_api_key
+   CLOUDINARY_API_SECRET=your_api_secret
+   ```
+
+4. **Install Additional Dependencies** (if not already installed)
+   ```bash
+   npm install multer cloudinary
+   ```
+
+**Note:** If you don't set up Cloudinary, users will see default avatar images instead of uploaded ones.
+
 ### Step 3: Run the Backend Server
 
 ```bash
@@ -91,14 +116,32 @@ You should see:
 
 ```
 TIC TOC TOE/
-├── server.js           # Backend server (Express + MongoDB)
-├── package.json        # Node.js dependencies
-├── .env               # Environment variables (DO NOT commit)
-├── .env.example       # Example environment file
-├── .gitignore         # Git ignore file
-├── index.html         # Login/Register page
-├── dashboard.html     # User dashboard
-└── script.js          # Game logic
+├── backend/
+│   ├── server.js           # Main server entry point
+│   ├── config/
+│   │   └── database.js     # MongoDB connection configuration
+│   ├── models/
+│   │   ├── user.js         # User schema/model
+│   │   └── game.js         # Game schema/model
+│   ├── routes/
+│   │   ├── api.js          # HTTP API endpoints
+│   │   └── websocket.js    # WebSocket handlers
+│   ├── utils/
+│   │   └── helpers.js      # Utility functions
+│   ├── package.json        # Node.js dependencies
+│   ├── .env               # Environment variables (DO NOT commit)
+│   └── .env.example       # Example environment file
+├── frontend/
+│   ├── index.html         # Login/Register page
+│   ├── dashboard.html     # User dashboard
+│   ├── game.html          # Game interface
+│   ├── dashboard_ui.css   # Dashboard styles
+│   ├── game_ui.css        # Game styles
+│   ├── index_ui.css       # Login/Register styles
+│   ├── dashboard_script.js # Dashboard JavaScript
+│   └── script.js          # Game logic
+├── .gitignore             # Git ignore file
+└── SETUP_GUIDE.md         # This setup guide
 ```
 
 ## 🔐 Security Features
@@ -113,6 +156,8 @@ TIC TOC TOE/
 - **mongoose**: MongoDB object modeling
 - **bcryptjs**: Password hashing
 - **dotenv**: Environment variables
+- **multer**: File upload handling
+- **cloudinary**: Cloud image storage and processing
 - **nodemon**: Auto-restart during development (dev dependency)
 - **http**: Built-in Node.js module (no external framework)
 - **url**: Built-in Node.js module for URL parsing

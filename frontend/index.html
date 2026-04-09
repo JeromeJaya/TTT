@@ -5,70 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login</title>
 
-<style>
-body {
-    font-family: Arial;
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.container {
-    background: white;
-    padding: 30px;
-    border-radius: 10px;
-    width: 300px;
-    text-align: center;
-}
-
-input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-}
-
-button {
-    padding: 10px;
-    width: 100%;
-    background: #2a5298;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.register-btn {
-    background: #4CAF50;
-    margin-top: 15px;
-}
-
-.register-btn:hover {
-    background: #45a049;
-}
-
-.form-container {
-    display: none;
-}
-
-.form-container.active {
-    display: block;
-}
-
-.toggle-link {
-    color: #2a5298;
-    cursor: pointer;
-    text-decoration: underline;
-    margin-top: 15px;
-    display: inline-block;
-}
-
-.toggle-link:hover {
-    color: #1e3c72;
-}
-
-</style>
+<link rel="stylesheet" href="index_ui.css">
 </head>
 
 <body>
@@ -95,7 +32,9 @@ button {
 </div>
 
 <script>
-const BASE_URL = "http://localhost:3000";
+const LOCALHOST_BASE_URL = "http://localhost:3000";
+const backend_BASE_URL = "https://tictoctoe-backend.onrender.com";
+const frontend_BASE_URL = "https://tttfront.netlify.app";
 
 // Toggle between login and register forms
 function showRegister() {
@@ -112,7 +51,7 @@ async function login() {
     const username = document.getElementById("loginUsername").value;
     const password = document.getElementById("loginPassword").value;
 
-    const res = await fetch(`${BASE_URL}/login`, {
+    const res = await fetch(`${backend_BASE_URL}/login`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({ username, password })
@@ -138,7 +77,7 @@ async function login() {
     localStorage.setItem("username", username);
 
     // Redirect
-    window.location.href = `${BASE_URL}/dashboard`;
+    window.location.href = `${frontend_BASE_URL}/dashboard`;
 }
 
 async function register() {
@@ -158,7 +97,7 @@ async function register() {
         return;
     }
 
-    const res = await fetch(`${BASE_URL}/register`, {
+    const res = await fetch(`${backend_BASE_URL}/register`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({ username, password })
